@@ -1,0 +1,31 @@
+# 빌드 명령어
+# docker-compose -f docker-compose.yaml build
+# 시작 명령어
+# docker-compose -f docker-compose.yaml up
+# 종료 명령어
+# docker-compose -f docker-compose.yaml down
+
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0.31
+    # ports:
+    #   - '3306:3306'
+    restart: always
+    command:
+      - mysqld
+      - --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: kero
+      MYSQL_USER: kero
+      MYSQL_PASSWORD: kero
+      MYSQL_DATABASE: kero
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+    ports:
+      - '3000:3000'
+    command: sh -c "sleep 10s && npm run typeorm:migration:run && mv ./src/db-migrations ./ && npm run start"

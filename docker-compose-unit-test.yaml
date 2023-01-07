@@ -1,0 +1,11 @@
+# 시작 명령어
+# docker-compose -f docker-compose-unit-test.yaml up \
+# && docker-compose -f docker-compose-unit-test.yaml rm -fsv
+
+version: '3.9'
+
+services:
+  app_test:
+    build: .
+    container_name: app_test
+    command: sh -c "npm run test:cov"
