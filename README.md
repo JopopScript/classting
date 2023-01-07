@@ -55,6 +55,13 @@ docker-compose -f docker-compose-e2e-test.yaml down
 #코드 수정후 빌드명령을 진행하였지만 캐시를 사용하며 빌드가 진해오디지 않는경우
 docker-compose -f docker-compose-e2e-test.yaml build --no-cache
 
+# 마이그래이션 파일 생성
+# npm run typeorm:migration:generate -- {마이그래이션 파일 생성 경로}
+npm run typeorm:migration:generate -- src/db-migrations/init
+
+# 생성파일
+# src/db-migrations/{시간}-init.ts -> src/db-migrations/1673114741811-init.ts
+
 ```
 
 ## 로컬컴퓨터에서 구동
